@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración | Tecnología Digital</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Tecnología Digital" class="logo-img">
+        </div>
+
+        <nav class="menu">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="clientes.html">Clientes</a>
+            <a href="productos.html">Productos</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="ordenes.html">Órdenes</a>
+            <a href="facturacion.html">Facturación</a>
+            <a href="pagos.html">Pagos</a>
+            <a href="garantias.html">Garantías</a>
+            <a href="inventario.html">Inventario</a>
+            <a href="reportes.html">Reportes</a>
+            <a href="configuracion.html" class="activo">Configuración</a>
+        </nav>
+
+        <button id="btnCerrarSesion" class="btn-salir">Cerrar sesión</button>
+    </aside>
+
+    <main class="contenido">
+        <header class="header">
+            <div>
+                <h1>Configuración</h1>
+                <p>Datos de la empresa, factura y apariencia del sistema</p>
+            </div>
+
+            <div class="usuario-header">
+                <span id="nombreUsuario">Usuario</span>
+                <small id="rolUsuario">Rol</small>
+            </div>
+        </header>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Datos de la empresa</h2>
+                <p>Esta información aparecerá en facturas y comprobantes</p>
+            </div>
+
+            <form id="formConfiguracion" class="formulario">
+                <div class="grid-form">
+                    <div class="grupo-form">
+                        <label for="nombre_empresa">Nombre de empresa</label>
+                        <input type="text" id="nombre_empresa" placeholder="Tecnología Digital" required>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="nombre_comercial">Nombre comercial</label>
+                        <input type="text" id="nombre_comercial" placeholder="Tecnología Digital Servicio Técnico">
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="ruc">RUC</label>
+                        <input type="text" id="ruc" placeholder="1803980778001">
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="telefono">Teléfono</label>
+                        <input type="text" id="telefono" placeholder="0987021100">
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="correo">Correo</label>
+                        <input type="email" id="correo" placeholder="tecnologiadigital@gmail.com">
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="iva">IVA %</label>
+                        <input type="number" id="iva" step="0.01" min="0" value="15">
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="logo">Logo</label>
+                        <input type="text" id="logo" placeholder="Ruta o nombre del logo">
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="moneda">Moneda</label>
+                        <input type="text" id="moneda" value="USD">
+                    </div>
+
+                    <div class="grupo-form grupo-completo">
+                        <label for="direccion">Dirección</label>
+                        <input type="text" id="direccion" placeholder="Dirección de la empresa">
+                    </div>
+
+                    <div class="grupo-form grupo-completo">
+                        <label for="datos_factura">Datos para factura</label>
+                        <textarea id="datos_factura" placeholder="Información adicional para facturas"></textarea>
+                    </div>
+                </div>
+
+                <div class="subpanel">
+                    <h3>Colores y apariencia</h3>
+
+                    <div class="grid-form">
+                        <div class="grupo-form">
+                            <label for="color_principal">Color principal</label>
+                            <input type="color" id="color_principal" value="#0A74DA">
+                        </div>
+
+                        <div class="grupo-form">
+                            <label for="color_secundario">Color secundario</label>
+                            <input type="color" id="color_secundario" value="#00B4D8">
+                        </div>
+
+                        <div class="grupo-form">
+                            <label for="color_fondo">Color fondo</label>
+                            <input type="color" id="color_fondo" value="#F4F8FB">
+                        </div>
+
+                        <div class="grupo-form">
+                            <label for="color_texto">Color texto</label>
+                            <input type="color" id="color_texto" value="#1F2937">
+                        </div>
+
+                        <div class="grupo-form">
+                            <label for="modo">Modo</label>
+                            <select id="modo">
+                                <option value="Claro">Claro</option>
+                                <option value="Oscuro">Oscuro</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="acciones-form">
+                    <button type="submit" class="btn btn-principal">Guardar configuración</button>
+                </div>
+
+                <div id="mensajeConfiguracion" class="mensaje"></div>
+            </form>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Vista previa de factura</h2>
+                <p>Así se verán los datos principales de la empresa</p>
+            </div>
+
+            <div class="factura-preview">
+                <div class="factura-preview-header">
+                    <div class="logo-icon">TD</div>
+                    <div>
+                        <h2 id="previewNombreEmpresa">Tecnología Digital</h2>
+                        <p id="previewNombreComercial">Tecnología Digital Servicio Técnico</p>
+                    </div>
+                </div>
+
+                <div class="factura-preview-info">
+                    <p><strong>RUC:</strong> <span id="previewRuc">1803980778001</span></p>
+                    <p><strong>Dirección:</strong> <span id="previewDireccion">Ambato</span></p>
+                    <p><strong>Teléfono:</strong> <span id="previewTelefono">0987021100</span></p>
+                    <p><strong>Correo:</strong> <span id="previewCorreo">tecnologiadigital@gmail.com</span></p>
+                    <p><strong>IVA:</strong> <span id="previewIva">15</span>%</p>
+                </div>
+
+                <div class="factura-preview-nota">
+                    <p id="previewDatosFactura">Servicio técnico y venta de componentes tecnológicos</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

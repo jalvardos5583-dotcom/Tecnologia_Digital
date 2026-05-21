@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes | Tecnología Digital</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Tecnología Digital" class="logo-img">
+        </div>
+
+        <nav class="menu">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="clientes.html">Clientes</a>
+            <a href="productos.html">Productos</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="ordenes.html">Órdenes</a>
+            <a href="facturacion.html">Facturación</a>
+            <a href="pagos.html">Pagos</a>
+            <a href="garantias.html">Garantías</a>
+            <a href="inventario.html">Inventario</a>
+            <a href="reportes.html" class="activo">Reportes</a>
+            <a href="configuracion.html">Configuración</a>
+        </nav>
+
+        <button id="btnCerrarSesion" class="btn-salir">Cerrar sesión</button>
+    </aside>
+
+    <main class="contenido">
+        <header class="header">
+            <div>
+                <h1>Reportes</h1>
+                <p>Consulta ventas, servicios, productos, pagos y órdenes</p>
+            </div>
+
+            <div class="usuario-header">
+                <span id="nombreUsuario">Usuario</span>
+                <small id="rolUsuario">Rol</small>
+            </div>
+        </header>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Filtros de reporte</h2>
+                <p>Selecciona un rango de fechas para consultar información</p>
+            </div>
+
+            <form id="formReportes" class="formulario">
+                <div class="grid-form">
+                    <div class="grupo-form">
+                        <label for="fechaInicioReporte">Fecha inicio</label>
+                        <input type="date" id="fechaInicioReporte">
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="fechaFinReporte">Fecha fin</label>
+                        <input type="date" id="fechaFinReporte">
+                    </div>
+
+                    <div class="grupo-form">
+                        <label>&nbsp;</label>
+                        <button type="submit" class="btn btn-principal">Generar reporte</button>
+                    </div>
+                </div>
+
+                <div id="mensajeReporte" class="mensaje"></div>
+            </form>
+        </section>
+
+        <section class="cards-dashboard">
+            <article class="card-dashboard">
+                <div class="card-icono">💵</div>
+                <div>
+                    <h3>Total vendido</h3>
+                    <strong id="reporteTotalVendido">$0.00</strong>
+                </div>
+            </article>
+
+            <article class="card-dashboard">
+                <div class="card-icono">🧾</div>
+                <div>
+                    <h3>Facturas</h3>
+                    <strong id="reporteTotalFacturas">0</strong>
+                </div>
+            </article>
+
+            <article class="card-dashboard">
+                <div class="card-icono">📦</div>
+                <div>
+                    <h3>Productos más vendidos</h3>
+                    <strong id="reporteProductosVendidos">0</strong>
+                </div>
+            </article>
+
+            <article class="card-dashboard alerta">
+                <div class="card-icono">⚠️</div>
+                <div>
+                    <h3>Stock bajo</h3>
+                    <strong id="reporteStockBajo">0</strong>
+                </div>
+            </article>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Ventas por fecha</h2>
+                <p>Resumen de facturación por día</p>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Facturas</th>
+                            <th>Total vendido</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaVentasPorFecha">
+                        <tr>
+                            <td colspan="3">Genera un reporte para ver datos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Productos más vendidos</h2>
+                <p>Componentes con más salida en facturación</p>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaProductosVendidos">
+                        <tr>
+                            <td colspan="3">Genera un reporte para ver datos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Servicios más solicitados</h2>
+                <p>Servicios técnicos más facturados</p>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Servicio</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaServiciosSolicitados">
+                        <tr>
+                            <td colspan="3">Genera un reporte para ver datos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Órdenes por estado</h2>
+                <p>Estado actual de las órdenes de servicio</p>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Estado</th>
+                            <th>Total de órdenes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaOrdenesEstado">
+                        <tr>
+                            <td colspan="2">Genera un reporte para ver datos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Pagos pendientes</h2>
+                <p>Facturas con saldo pendiente</p>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Factura</th>
+                            <th>Cliente</th>
+                            <th>Total</th>
+                            <th>Pagado</th>
+                            <th>Pendiente</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaPagosPendientes">
+                        <tr>
+                            <td colspan="5">Genera un reporte para ver datos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Productos con stock bajo</h2>
+                <p>Productos que necesitan reposición</p>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Producto</th>
+                            <th>Stock</th>
+                            <th>Stock mínimo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaStockBajo">
+                        <tr>
+                            <td colspan="4">Genera un reporte para ver datos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Tecnología Digital</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Tecnología Digital" class="logo-img">
+        </div>
+
+        <nav class="menu">
+            <a href="dashboard.html" class="activo">Dashboard</a>
+            <a href="clientes.html">Clientes</a>
+            <a href="productos.html">Productos</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="ordenes.html">Órdenes</a>
+            <a href="facturacion.html">Facturación</a>
+            <a href="pagos.html">Pagos</a>
+            <a href="garantias.html">Garantías</a>
+            <a href="inventario.html">Inventario</a>
+            <a href="reportes.html">Reportes</a>
+            <a href="configuracion.html">Configuración</a>
+        </nav>
+
+        <button id="btnCerrarSesion" class="btn-salir">Cerrar sesión</button>
+    </aside>
+
+    <main class="contenido">
+        <header class="header">
+            <div>
+                <h1>Panel principal</h1>
+                <p>Resumen general del sistema Tecnología Digital</p>
+            </div>
+
+            <div class="usuario-header">
+                <span id="nombreUsuario">Usuario</span>
+                <small id="rolUsuario">Rol</small>
+            </div>
+        </header>
+
+        <section class="cards-dashboard">
+            <article class="card-dashboard">
+                <div class="card-icono">💵</div>
+                <div>
+                    <h3>Ventas del día</h3>
+                    <strong id="ventasDia">$0.00</strong>
+                </div>
+            </article>
+
+            <article class="card-dashboard">
+                <div class="card-icono">🛠️</div>
+                <div>
+                    <h3>Servicios pendientes</h3>
+                    <strong id="serviciosPendientes">0</strong>
+                </div>
+            </article>
+
+            <article class="card-dashboard">
+                <div class="card-icono">👥</div>
+                <div>
+                    <h3>Clientes registrados</h3>
+                    <strong id="clientesRegistrados">0</strong>
+                </div>
+            </article>
+
+            <article class="card-dashboard">
+                <div class="card-icono">📦</div>
+                <div>
+                    <h3>Productos en stock</h3>
+                    <strong id="productosStock">0</strong>
+                </div>
+            </article>
+
+            <article class="card-dashboard">
+                <div class="card-icono">🧾</div>
+                <div>
+                    <h3>Facturas emitidas</h3>
+                    <strong id="facturasEmitidas">0</strong>
+                </div>
+            </article>
+
+            <article class="card-dashboard alerta">
+                <div class="card-icono">⚠️</div>
+                <div>
+                    <h3>Productos bajo stock</h3>
+                    <strong id="productosBajoStock">0</strong>
+                </div>
+            </article>
+
+            <article class="card-dashboard">
+                <div class="card-icono">🔧</div>
+                <div>
+                    <h3>Órdenes en reparación</h3>
+                    <strong id="ordenesReparacion">0</strong>
+                </div>
+            </article>
+
+            <article class="card-dashboard">
+                <div class="card-icono">📈</div>
+                <div>
+                    <h3>Ganancias aproximadas</h3>
+                    <strong id="gananciasAproximadas">$0.00</strong>
+                </div>
+            </article>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Accesos rápidos</h2>
+                <p>Gestiona las partes principales del sistema</p>
+            </div>
+
+            <div class="acciones-rapidas">
+                <a href="clientes.html" class="accion-card">
+                    <span>👥</span>
+                    <strong>Clientes</strong>
+                    <small>Registrar y consultar clientes</small>
+                </a>
+
+                <a href="productos.html" class="accion-card">
+                    <span>📦</span>
+                    <strong>Productos</strong>
+                    <small>Control de componentes y stock</small>
+                </a>
+
+                <a href="ordenes.html" class="accion-card">
+                    <span>🛠️</span>
+                    <strong>Órdenes</strong>
+                    <small>Servicio técnico y reparaciones</small>
+                </a>
+
+                <a href="facturacion.html" class="accion-card">
+                    <span>🧾</span>
+                    <strong>Facturación</strong>
+                    <small>Facturas de productos y servicios</small>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

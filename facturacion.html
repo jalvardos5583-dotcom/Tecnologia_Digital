@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facturación | Tecnología Digital</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Tecnología Digital" class="logo-img">
+        </div>
+
+        <nav class="menu">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="clientes.html">Clientes</a>
+            <a href="productos.html">Productos</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="ordenes.html">Órdenes</a>
+            <a href="facturacion.html" class="activo">Facturación</a>
+            <a href="pagos.html">Pagos</a>
+            <a href="garantias.html">Garantías</a>
+            <a href="inventario.html">Inventario</a>
+            <a href="reportes.html">Reportes</a>
+            <a href="configuracion.html">Configuración</a>
+        </nav>
+
+        <button id="btnCerrarSesion" class="btn-salir">Cerrar sesión</button>
+    </aside>
+
+    <main class="contenido">
+        <header class="header">
+            <div>
+                <h1>Facturación</h1>
+                <p>Emisión de facturas de productos, servicios y órdenes</p>
+            </div>
+
+            <div class="usuario-header">
+                <span id="nombreUsuario">Usuario</span>
+                <small id="rolUsuario">Rol</small>
+            </div>
+        </header>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Nueva factura</h2>
+                <p>Selecciona cliente, productos o servicios para facturar</p>
+            </div>
+
+            <form id="formFactura" class="formulario">
+                <div class="grid-form">
+                    <div class="grupo-form">
+                        <label for="id_cliente">Cliente</label>
+                        <select id="id_cliente" required>
+                            <option value="">Seleccione cliente</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="id_orden">Orden de servicio</label>
+                        <select id="id_orden">
+                            <option value="">Sin orden</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="metodo_pago">Método de pago</label>
+                        <select id="metodo_pago">
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Transferencia">Transferencia</option>
+                            <option value="Tarjeta">Tarjeta</option>
+                            <option value="Pago mixto">Pago mixto</option>
+                            <option value="Pendiente">Pendiente</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="descuentoFactura">Descuento general</label>
+                        <input type="number" id="descuentoFactura" step="0.01" min="0" value="0">
+                    </div>
+                </div>
+
+                <div class="subpanel">
+                    <h3>Agregar producto</h3>
+
+                    <div class="grid-form grid-form-mini">
+                        <div class="grupo-form">
+                            <label for="selectProductoFactura">Producto</label>
+                            <select id="selectProductoFactura">
+                                <option value="">Seleccione producto</option>
+                            </select>
+                        </div>
+
+                        <div class="grupo-form">
+                            <label for="cantidadProductoFactura">Cantidad</label>
+                            <input type="number" id="cantidadProductoFactura" min="1" value="1">
+                        </div>
+
+                        <div class="grupo-form">
+                            <label for="descuentoProductoFactura">Descuento</label>
+                            <input type="number" id="descuentoProductoFactura" step="0.01" min="0" value="0">
+                        </div>
+
+                        <div class="grupo-form">
+                            <label>&nbsp;</label>
+                            <button type="button" id="btnAgregarProductoFactura" class="btn btn-secundario">Agregar producto</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subpanel">
+                    <h3>Agregar servicio</h3>
+
+                    <div class="grid-form grid-form-mini">
+                        <div class="grupo-form">
+                            <label for="selectServicioFactura">Servicio</label>
+                            <select id="selectServicioFactura">
+                                <option value="">Seleccione servicio</option>
+                            </select>
+                        </div>
+
+                        <div class="grupo-form">
+                            <label for="descuentoServicioFactura">Descuento</label>
+                            <input type="number" id="descuentoServicioFactura" step="0.01" min="0" value="0">
+                        </div>
+
+                        <div class="grupo-form">
+                            <label>&nbsp;</label>
+                            <button type="button" id="btnAgregarServicioFactura" class="btn btn-secundario">Agregar servicio</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabla-contenedor">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Descripción</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Descuento</th>
+                                <th>IVA</th>
+                                <th>Subtotal</th>
+                                <th>Quitar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaDetalleFactura">
+                            <tr>
+                                <td colspan="8">Sin productos o servicios agregados</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="totales-factura">
+                    <div>
+                        <span>Subtotal</span>
+                        <strong id="subtotalFactura">$0.00</strong>
+                    </div>
+
+                    <div>
+                        <span>Descuento</span>
+                        <strong id="descuentoTotalFactura">$0.00</strong>
+                    </div>
+
+                    <div>
+                        <span>IVA</span>
+                        <strong id="ivaFactura">$0.00</strong>
+                    </div>
+
+                    <div class="total-final">
+                        <span>Total</span>
+                        <strong id="totalFactura">$0.00</strong>
+                    </div>
+                </div>
+
+                <div class="acciones-form">
+                    <button type="submit" class="btn btn-principal">Guardar factura</button>
+                    <button type="button" id="btnLimpiarFactura" class="btn btn-secundario">Limpiar</button>
+                    <button type="button" id="btnImprimirFactura" class="btn btn-secundario">Imprimir factura</button>
+                </div>
+
+                <div id="mensajeFactura" class="mensaje"></div>
+            </form>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header panel-header-linea">
+                <div>
+                    <h2>Facturas emitidas</h2>
+                    <p>Listado general de facturas</p>
+                </div>
+
+                <div class="buscador">
+                    <input type="text" id="buscarFactura" placeholder="Buscar factura...">
+                    <button id="btnBuscarFactura" class="btn btn-secundario">Buscar</button>
+                </div>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Número</th>
+                            <th>Cliente</th>
+                            <th>Usuario</th>
+                            <th>Fecha</th>
+                            <th>Total</th>
+                            <th>Método</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaFacturas">
+                        <tr>
+                            <td colspan="8">Cargando facturas...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

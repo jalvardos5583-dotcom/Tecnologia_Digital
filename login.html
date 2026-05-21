@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Tecnología Digital</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="auth-body">
+
+    <main class="auth-container">
+        <section class="auth-card">
+            <div class="auth-logo">
+                <img src="logo.png" alt="Tecnología Digital" class="logo-img">
+                <h1>Tecnología Digital</h1>
+                <p>Servicio técnico y facturación</p>
+            </div>
+
+            <form id="formLogin" class="formulario">
+                <h2>Iniciar sesión</h2>
+
+                <div class="grupo-form">
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" id="correo" name="correo" placeholder="admin@tecnologiadigital.com" required>
+                </div>
+
+                <div class="grupo-form">
+                    <label for="contraseña">Contraseña</label>
+                    <input type="password" id="contraseña" name="contraseña" placeholder="Ingrese su contraseña" required>
+                </div>
+
+                <button type="submit" class="btn btn-principal">Ingresar</button>
+
+                <div id="mensajeLogin" class="mensaje"></div>
+
+                <p class="auth-link">
+                    ¿No tienes cuenta?
+                    <a href="crear_cuenta.html">Crear cuenta</a>
+                </p>
+            </form>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

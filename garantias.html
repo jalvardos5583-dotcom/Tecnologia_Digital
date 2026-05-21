@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garantías | Tecnología Digital</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Tecnología Digital" class="logo-img">
+        </div>
+
+        <nav class="menu">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="clientes.html">Clientes</a>
+            <a href="productos.html">Productos</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="ordenes.html">Órdenes</a>
+            <a href="facturacion.html">Facturación</a>
+            <a href="pagos.html">Pagos</a>
+            <a href="garantias.html" class="activo">Garantías</a>
+            <a href="inventario.html">Inventario</a>
+            <a href="reportes.html">Reportes</a>
+            <a href="configuracion.html">Configuración</a>
+        </nav>
+
+        <button id="btnCerrarSesion" class="btn-salir">Cerrar sesión</button>
+    </aside>
+
+    <main class="contenido">
+        <header class="header">
+            <div>
+                <h1>Garantías</h1>
+                <p>Control de garantías vigentes, vencidas y anuladas</p>
+            </div>
+
+            <div class="usuario-header">
+                <span id="nombreUsuario">Usuario</span>
+                <small id="rolUsuario">Rol</small>
+            </div>
+        </header>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Registrar garantía</h2>
+                <p>Asocia una garantía a una factura y cliente</p>
+            </div>
+
+            <form id="formGarantia" class="formulario">
+                <div class="grid-form">
+                    <div class="grupo-form">
+                        <label for="id_factura">Factura</label>
+                        <select id="id_factura" required>
+                            <option value="">Seleccione factura</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="id_cliente">Cliente</label>
+                        <select id="id_cliente" required>
+                            <option value="">Seleccione cliente</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="fecha_inicio">Fecha inicio</label>
+                        <input type="date" id="fecha_inicio" required>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="fecha_fin">Fecha fin</label>
+                        <input type="date" id="fecha_fin" required>
+                    </div>
+
+                    <div class="grupo-form grupo-completo">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" placeholder="Descripción de la garantía" required></textarea>
+                    </div>
+
+                    <div class="grupo-form grupo-completo">
+                        <label for="condiciones">Condiciones</label>
+                        <textarea id="condiciones" placeholder="Condiciones de la garantía"></textarea>
+                    </div>
+                </div>
+
+                <div class="acciones-form">
+                    <button type="submit" class="btn btn-principal">Guardar garantía</button>
+                    <button type="button" id="btnLimpiarGarantia" class="btn btn-secundario">Limpiar</button>
+                </div>
+
+                <div id="mensajeGarantia" class="mensaje"></div>
+            </form>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Lista de garantías</h2>
+                <p>Consulta garantías por cliente o factura</p>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Factura</th>
+                            <th>Cliente</th>
+                            <th>Descripción</th>
+                            <th>Inicio</th>
+                            <th>Fin</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaGarantias">
+                        <tr>
+                            <td colspan="6">Cargando garantías...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes | Tecnología Digital</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Tecnología Digital" class="logo-img">
+        </div>
+
+        <nav class="menu">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="clientes.html" class="activo">Clientes</a>
+            <a href="productos.html">Productos</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="ordenes.html">Órdenes</a>
+            <a href="facturacion.html">Facturación</a>
+            <a href="pagos.html">Pagos</a>
+            <a href="garantias.html">Garantías</a>
+            <a href="inventario.html">Inventario</a>
+            <a href="reportes.html">Reportes</a>
+            <a href="configuracion.html">Configuración</a>
+        </nav>
+
+        <button id="btnCerrarSesion" class="btn-salir">Cerrar sesión</button>
+    </aside>
+
+    <main class="contenido">
+        <header class="header">
+            <div>
+                <h1>Clientes</h1>
+                <p>Registro, búsqueda y administración de clientes</p>
+            </div>
+
+            <div class="usuario-header">
+                <span id="nombreUsuario">Usuario</span>
+                <small id="rolUsuario">Rol</small>
+            </div>
+        </header>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Registrar cliente</h2>
+                <p>Completa los datos principales del cliente</p>
+            </div>
+
+            <form id="formCliente" class="formulario">
+                <input type="hidden" id="id_cliente">
+
+                <div class="grid-form">
+                    <div class="grupo-form">
+                        <label for="tipo_identificacion">Tipo de identificación</label>
+                        <select id="tipo_identificacion" required>
+                            <option value="Cédula">Cédula</option>
+                            <option value="RUC">RUC</option>
+                            <option value="Pasaporte">Pasaporte</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="identificacion">Identificación</label>
+                        <input type="text" id="identificacion" placeholder="Ingrese identificación" required>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="nombres">Nombres</label>
+                        <input type="text" id="nombres" placeholder="Nombre completo" required>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="telefono">Teléfono</label>
+                        <input type="text" id="telefono" placeholder="0987021100">
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="correo">Correo</label>
+                        <input type="email" id="correo" placeholder="cliente@correo.com">
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="estado">Estado</label>
+                        <select id="estado">
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-form grupo-completo">
+                        <label for="direccion">Dirección</label>
+                        <input type="text" id="direccion" placeholder="Dirección del cliente">
+                    </div>
+                </div>
+
+                <div class="acciones-form">
+                    <button type="submit" class="btn btn-principal">Guardar cliente</button>
+                    <button type="button" id="btnLimpiarCliente" class="btn btn-secundario">Limpiar</button>
+                </div>
+
+                <div id="mensajeCliente" class="mensaje"></div>
+            </form>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header panel-header-linea">
+                <div>
+                    <h2>Lista de clientes</h2>
+                    <p>Clientes registrados en el sistema</p>
+                </div>
+
+                <div class="buscador">
+                    <input type="text" id="buscarCliente" placeholder="Buscar cliente...">
+                    <button id="btnBuscarCliente" class="btn btn-secundario">Buscar</button>
+                </div>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Identificación</th>
+                            <th>Nombres</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaClientes">
+                        <tr>
+                            <td colspan="7">Cargando clientes...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

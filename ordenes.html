@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Órdenes | Tecnología Digital</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Tecnología Digital" class="logo-img">
+        </div>
+
+        <nav class="menu">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="clientes.html">Clientes</a>
+            <a href="productos.html">Productos</a>
+            <a href="servicios.html">Servicios</a>
+            <a href="ordenes.html" class="activo">Órdenes</a>
+            <a href="facturacion.html">Facturación</a>
+            <a href="pagos.html">Pagos</a>
+            <a href="garantias.html">Garantías</a>
+            <a href="inventario.html">Inventario</a>
+            <a href="reportes.html">Reportes</a>
+            <a href="configuracion.html">Configuración</a>
+        </nav>
+
+        <button id="btnCerrarSesion" class="btn-salir">Cerrar sesión</button>
+    </aside>
+
+    <main class="contenido">
+        <header class="header">
+            <div>
+                <h1>Órdenes de servicio</h1>
+                <p>Recepción, diagnóstico y reparación de equipos</p>
+            </div>
+
+            <div class="usuario-header">
+                <span id="nombreUsuario">Usuario</span>
+                <small id="rolUsuario">Rol</small>
+            </div>
+        </header>
+
+        <section class="panel">
+            <div class="panel-header">
+                <h2>Crear orden de servicio</h2>
+                <p>Registra el equipo que ingresa al taller</p>
+            </div>
+
+            <form id="formOrden" class="formulario">
+                <input type="hidden" id="id_orden">
+
+                <div class="grid-form">
+                    <div class="grupo-form">
+                        <label for="id_cliente">Cliente</label>
+                        <select id="id_cliente" required>
+                            <option value="">Seleccione un cliente</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="id_tecnico">Técnico</label>
+                        <select id="id_tecnico">
+                            <option value="">Seleccione un técnico</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="equipo">Equipo</label>
+                        <input type="text" id="equipo" placeholder="Laptop, PC, impresora..." required>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="marca">Marca</label>
+                        <input type="text" id="marca" placeholder="HP, Dell, Lenovo...">
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="modelo">Modelo</label>
+                        <input type="text" id="modelo" placeholder="Modelo del equipo">
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="numero_serie">Número de serie</label>
+                        <input type="text" id="numero_serie" placeholder="Serie del equipo">
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="fecha_entrega">Fecha estimada de entrega</label>
+                        <input type="datetime-local" id="fecha_entrega">
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="estado">Estado</label>
+                        <select id="estado">
+                            <option value="Recibido">Recibido</option>
+                            <option value="En revisión">En revisión</option>
+                            <option value="En reparación">En reparación</option>
+                            <option value="Esperando repuesto">Esperando repuesto</option>
+                            <option value="Listo para entregar">Listo para entregar</option>
+                            <option value="Entregado">Entregado</option>
+                            <option value="Cancelado">Cancelado</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-form grupo-completo">
+                        <label for="accesorios_recibidos">Accesorios recibidos</label>
+                        <textarea id="accesorios_recibidos" placeholder="Cargador, bolso, mouse, cable..."></textarea>
+                    </div>
+
+                    <div class="grupo-form grupo-completo">
+                        <label for="problema_reportado">Problema reportado</label>
+                        <textarea id="problema_reportado" placeholder="Describe el problema indicado por el cliente" required></textarea>
+                    </div>
+
+                    <div class="grupo-form grupo-completo">
+                        <label for="diagnostico">Diagnóstico</label>
+                        <textarea id="diagnostico" placeholder="Diagnóstico técnico"></textarea>
+                    </div>
+
+                    <div class="grupo-form grupo-completo">
+                        <label for="solucion">Solución</label>
+                        <textarea id="solucion" placeholder="Trabajo realizado o solución sugerida"></textarea>
+                    </div>
+
+                    <div class="grupo-form grupo-completo">
+                        <label for="observaciones">Observaciones</label>
+                        <textarea id="observaciones" placeholder="Observaciones adicionales"></textarea>
+                    </div>
+                </div>
+
+                <div class="subpanel">
+                    <h3>Agregar productos usados</h3>
+
+                    <div class="grid-form grid-form-mini">
+                        <div class="grupo-form">
+                            <label for="selectProductoOrden">Producto</label>
+                            <select id="selectProductoOrden">
+                                <option value="">Seleccione producto</option>
+                            </select>
+                        </div>
+
+                        <div class="grupo-form">
+                            <label for="cantidadProductoOrden">Cantidad</label>
+                            <input type="number" id="cantidadProductoOrden" min="1" value="1">
+                        </div>
+
+                        <div class="grupo-form">
+                            <label>&nbsp;</label>
+                            <button type="button" id="btnAgregarProductoOrden" class="btn btn-secundario">Agregar producto</button>
+                        </div>
+                    </div>
+
+                    <div class="tabla-contenedor tabla-pequena">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
+                                    <th>Subtotal</th>
+                                    <th>Quitar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaProductosOrden">
+                                <tr>
+                                    <td colspan="5">Sin productos agregados</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="subpanel">
+                    <h3>Agregar servicios realizados</h3>
+
+                    <div class="grid-form grid-form-mini">
+                        <div class="grupo-form">
+                            <label for="selectServicioOrden">Servicio</label>
+                            <select id="selectServicioOrden">
+                                <option value="">Seleccione servicio</option>
+                            </select>
+                        </div>
+
+                        <div class="grupo-form">
+                            <label>&nbsp;</label>
+                            <button type="button" id="btnAgregarServicioOrden" class="btn btn-secundario">Agregar servicio</button>
+                        </div>
+                    </div>
+
+                    <div class="tabla-contenedor tabla-pequena">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Servicio</th>
+                                    <th>Precio</th>
+                                    <th>Subtotal</th>
+                                    <th>Quitar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaServiciosOrden">
+                                <tr>
+                                    <td colspan="4">Sin servicios agregados</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="total-box">
+                    <span>Total estimado:</span>
+                    <strong id="totalOrden">$0.00</strong>
+                </div>
+
+                <div class="acciones-form">
+                    <button type="submit" class="btn btn-principal">Guardar orden</button>
+                    <button type="button" id="btnLimpiarOrden" class="btn btn-secundario">Limpiar</button>
+                    <button type="button" id="btnImprimirOrden" class="btn btn-secundario">Imprimir comprobante</button>
+                </div>
+
+                <div id="mensajeOrden" class="mensaje"></div>
+            </form>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header panel-header-linea">
+                <div>
+                    <h2>Lista de órdenes</h2>
+                    <p>Órdenes registradas en el taller</p>
+                </div>
+
+                <div class="buscador">
+                    <input type="text" id="buscarOrden" placeholder="Buscar orden...">
+                    <button id="btnBuscarOrden" class="btn btn-secundario">Buscar</button>
+                </div>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Número</th>
+                            <th>Cliente</th>
+                            <th>Técnico</th>
+                            <th>Equipo</th>
+                            <th>Estado</th>
+                            <th>Total</th>
+                            <th>Fecha ingreso</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaOrdenes">
+                        <tr>
+                            <td colspan="8">Cargando órdenes...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
