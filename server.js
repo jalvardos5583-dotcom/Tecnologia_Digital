@@ -1,21 +1,45 @@
 const express = require("express");
 const cors = require("cors");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const path = require("path");
 require("dotenv").config();
 
 const conexion = require("./conexion");
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || "clave_segura_tecnologia_digital";
 const JWT_EXPIRES = process.env.JWT_EXPIRES || "8h";
 
+// Middlewares
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Servir archivos HTML, CSS, JS e imágenes
+app.use(express.static(__dirname));
+
+// Página principal
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "login.html"));
+});
+
+// Rutas directas por si alguien entra manualmente
+app.get("/login", (req, res) => {
+    res.sendFile(path.join(__dirname, "login.html"));
+});
+
+app.get("/crear-cuenta", (req, res) => {
+    res.sendFile(path.join(__dirname, "crear_cuenta.html"));
+});
+
+app.get("/dashboard", (req, res) => {
+    res.sendFile(path.join(__dirname, "dashboard.html"));
+});
+
+// Verificar token
 function verificarToken(req, res, next) {
     const authHeader = req.headers["authorization"];
 
@@ -47,13 +71,15 @@ function verificarToken(req, res, next) {
     }
 }
 
-app.get("/", (req, res) => {
+// Ruta de prueba API
+app.get("/api", (req, res) => {
     res.json({
         ok: true,
         mensaje: "Servidor de Tecnología Digital funcionando correctamente"
     });
 });
 
+// LOGIN
 app.post("/api/login", async (req, res) => {
     try {
         const { correo, contraseña } = req.body;
@@ -141,6 +167,7 @@ app.post("/api/login", async (req, res) => {
     }
 });
 
+// CREAR CUENTA
 app.post("/api/crear-cuenta", async (req, res) => {
     try {
         const {
@@ -216,6 +243,7 @@ app.post("/api/crear-cuenta", async (req, res) => {
     }
 });
 
+// DASHBOARD
 app.get("/api/dashboard", verificarToken, async (req, res) => {
     try {
         const [[ventasDia]] = await conexion.query(
@@ -281,6 +309,7 @@ app.get("/api/dashboard", verificarToken, async (req, res) => {
     }
 });
 
+// CLIENTES
 app.get("/api/clientes", verificarToken, async (req, res) => {
     try {
         const buscar = req.query.buscar || "";
@@ -327,7 +356,7 @@ app.post("/api/clientes", verificarToken, async (req, res) => {
             `INSERT INTO clientes
             (tipo_identificacion, identificacion, nombres, telefono, correo, direccion)
             VALUES (?, ?, ?, ?, ?, ?)`,
-            [tipo_identificacion, identificacion, nombres, telefono, correo, direccion]
+            [tipo_identificacion || "Cédula", identificacion, nombres, telefono, correo, direccion]
         );
 
         res.json({
@@ -368,7 +397,7 @@ app.put("/api/clientes/:id", verificarToken, async (req, res) => {
             direccion = ?,
             estado = ?
             WHERE id_cliente = ?`,
-            [tipo_identificacion, identificacion, nombres, telefono, correo, direccion, estado, id]
+            [tipo_identificacion, identificacion, nombres, telefono, correo, direccion, estado || "Activo", id]
         );
 
         res.json({
@@ -408,6 +437,7 @@ app.delete("/api/clientes/:id", verificarToken, async (req, res) => {
     }
 });
 
+// PRODUCTOS
 app.get("/api/productos", verificarToken, async (req, res) => {
     try {
         const buscar = req.query.buscar || "";
@@ -460,7 +490,19 @@ app.post("/api/productos", verificarToken, async (req, res) => {
             `INSERT INTO productos
             (codigo, nombre, marca, modelo, categoria, descripcion, precio_compra, precio_venta, stock, stock_minimo, iva)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-            [codigo, nombre, marca, modelo, categoria, descripcion, precio_compra, precio_venta, stock, stock_minimo, iva]
+            [
+                codigo,
+                nombre,
+                marca,
+                modelo,
+                categoria,
+                descripcion,
+                precio_compra || 0,
+                precio_venta || 0,
+                stock || 0,
+                stock_minimo || 1,
+                iva || 15
+            ]
         );
 
         res.json({
@@ -511,7 +553,21 @@ app.put("/api/productos/:id", verificarToken, async (req, res) => {
             iva = ?,
             estado = ?
             WHERE id_producto = ?`,
-            [codigo, nombre, marca, modelo, categoria, descripcion, precio_compra, precio_venta, stock, stock_minimo, iva, estado, id]
+            [
+                codigo,
+                nombre,
+                marca,
+                modelo,
+                categoria,
+                descripcion,
+                precio_compra || 0,
+                precio_venta || 0,
+                stock || 0,
+                stock_minimo || 1,
+                iva || 15,
+                estado || "Activo",
+                id
+            ]
         );
 
         res.json({
@@ -551,6 +607,7 @@ app.delete("/api/productos/:id", verificarToken, async (req, res) => {
     }
 });
 
+// SERVICIOS
 app.get("/api/servicios", verificarToken, async (req, res) => {
     try {
         const buscar = req.query.buscar || "";
@@ -595,7 +652,7 @@ app.post("/api/servicios", verificarToken, async (req, res) => {
             `INSERT INTO servicios
             (nombre, descripcion, precio, tiempo_estimado, garantia_dias)
             VALUES (?, ?, ?, ?, ?)`,
-            [nombre, descripcion, precio, tiempo_estimado, garantia_dias]
+            [nombre, descripcion, precio || 0, tiempo_estimado, garantia_dias || 0]
         );
 
         res.json({
@@ -634,7 +691,7 @@ app.put("/api/servicios/:id", verificarToken, async (req, res) => {
             garantia_dias = ?,
             estado = ?
             WHERE id_servicio = ?`,
-            [nombre, descripcion, precio, tiempo_estimado, garantia_dias, estado, id]
+            [nombre, descripcion, precio || 0, tiempo_estimado, garantia_dias || 0, estado || "Activo", id]
         );
 
         res.json({
@@ -674,6 +731,7 @@ app.delete("/api/servicios/:id", verificarToken, async (req, res) => {
     }
 });
 
+// ÓRDENES
 app.get("/api/ordenes", verificarToken, async (req, res) => {
     try {
         const buscar = req.query.buscar || "";
@@ -747,13 +805,13 @@ app.post("/api/ordenes", verificarToken, async (req, res) => {
 
         if (Array.isArray(productos)) {
             productos.forEach(item => {
-                totalEstimado += Number(item.cantidad) * Number(item.precio_unitario);
+                totalEstimado += Number(item.cantidad || 0) * Number(item.precio_unitario || 0);
             });
         }
 
         if (Array.isArray(servicios)) {
             servicios.forEach(item => {
-                totalEstimado += Number(item.precio);
+                totalEstimado += Number(item.precio || 0);
             });
         }
 
@@ -786,7 +844,7 @@ app.post("/api/ordenes", verificarToken, async (req, res) => {
 
         if (Array.isArray(productos)) {
             for (const item of productos) {
-                const subtotal = Number(item.cantidad) * Number(item.precio_unitario);
+                const subtotal = Number(item.cantidad || 0) * Number(item.precio_unitario || 0);
 
                 await db.query(
                     `INSERT INTO orden_detalle_productos
@@ -902,6 +960,7 @@ app.put("/api/ordenes/:id", verificarToken, async (req, res) => {
     }
 });
 
+// FACTURAS
 app.get("/api/facturas", verificarToken, async (req, res) => {
     try {
         const buscar = req.query.buscar || "";
@@ -964,8 +1023,8 @@ app.post("/api/facturas", verificarToken, async (req, res) => {
         let ivaTotal = 0;
 
         detalles.forEach(item => {
-            const cantidad = Number(item.cantidad);
-            const precio = Number(item.precio_unitario);
+            const cantidad = Number(item.cantidad || 0);
+            const precio = Number(item.precio_unitario || 0);
             const desc = Number(item.descuento || 0);
             const ivaPorcentaje = Number(item.iva || 0);
 
@@ -1001,8 +1060,8 @@ app.post("/api/facturas", verificarToken, async (req, res) => {
         const idFactura = resultadoFactura.insertId;
 
         for (const item of detalles) {
-            const cantidad = Number(item.cantidad);
-            const precio = Number(item.precio_unitario);
+            const cantidad = Number(item.cantidad || 0);
+            const precio = Number(item.precio_unitario || 0);
             const desc = Number(item.descuento || 0);
             const ivaPorcentaje = Number(item.iva || 0);
             const sub = cantidad * precio - desc;
@@ -1115,6 +1174,7 @@ app.put("/api/facturas/anular/:id", verificarToken, async (req, res) => {
     }
 });
 
+// PAGOS
 app.get("/api/pagos", verificarToken, async (req, res) => {
     try {
         const [pagos] = await conexion.query(
@@ -1165,7 +1225,7 @@ app.post("/api/pagos", verificarToken, async (req, res) => {
             [id_factura]
         );
 
-        const nuevoPagado = Number(pagadoActual.pagado) + Number(monto_pagado);
+        const nuevoPagado = Number(pagadoActual.pagado) + Number(monto_pagado || 0);
         const saldoPendiente = Number(factura.total) - nuevoPagado;
 
         let estadoPago = "Abono";
@@ -1202,6 +1262,7 @@ app.post("/api/pagos", verificarToken, async (req, res) => {
     }
 });
 
+// GARANTÍAS
 app.get("/api/garantias", verificarToken, async (req, res) => {
     try {
         const [garantias] = await conexion.query(
@@ -1265,6 +1326,7 @@ app.post("/api/garantias", verificarToken, async (req, res) => {
     }
 });
 
+// INVENTARIO
 app.get("/api/inventario", verificarToken, async (req, res) => {
     try {
         const [movimientos] = await conexion.query(
@@ -1351,6 +1413,7 @@ app.post("/api/inventario", verificarToken, async (req, res) => {
     }
 });
 
+// REPORTES
 app.get("/api/reportes", verificarToken, async (req, res) => {
     try {
         const fechaInicio = req.query.fechaInicio || "2000-01-01";
@@ -1441,6 +1504,7 @@ app.get("/api/reportes", verificarToken, async (req, res) => {
     }
 });
 
+// CONFIGURACIÓN
 app.get("/api/configuracion", verificarToken, async (req, res) => {
     try {
         const [[empresa]] = await conexion.query(
@@ -1529,6 +1593,7 @@ app.put("/api/configuracion", verificarToken, async (req, res) => {
     }
 });
 
+// SELECTS
 app.get("/api/select/clientes", verificarToken, async (req, res) => {
     try {
         const [clientes] = await conexion.query(
@@ -1600,4 +1665,15 @@ app.get("/api/select/tecnicos", verificarToken, async (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
+// Si una ruta no existe
+app.use((req, res) => {
+    res.status(404).json({
+        ok: false,
+        mensaje: "Ruta no encontrada"
+    });
+});
+
+// Iniciar servidor
+app.listen(PORT, () => {
+    console.log(`Servidor en puerto ${PORT}`);
+});
