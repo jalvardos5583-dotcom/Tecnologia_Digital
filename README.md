@@ -1,2 +1,2 @@
 ﻿# Tecnologia_Digital
-https://tecnologiadigital-production.up.railway.app/servicios.html
+tecnologiadigital-production.up.railway.app
